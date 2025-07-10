@@ -32,5 +32,5 @@ jobs:
        context: .
        push: true
        tags: | 
-          statusquonjc46/ssh-portfolio:${{ env.VERSION }}
-          statusquonjc46/ssh-portfolio:${{ env.ENV }}
+          statusquox27/ssh-portfolio:${{ env.VERSION }}
+          statusquox27/ssh-portfolio:${{ env.ENV }}
