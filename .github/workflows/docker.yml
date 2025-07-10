@@ -13,6 +13,12 @@ jobs:
     steps:
     - name: Check out the repo
       uses: actions/checkout@v4
+    
+    - name: Get Version and ENV from .envars
+      run: |
+        source .envars
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "ENV=$ENV" >> $GITHUB_ENV
 
     - name: Login to dockerhub
       uses: docker/login-action@v3
@@ -25,4 +31,6 @@ jobs:
       with:
        context: .
        push: true
-       tags: statusquox27/ssh-portfolio:latest
+       tags: 
+         ssh-portfolio -t {{ env.VERSION }}
+         ssh-portfolio -t {{ env.ENV }}
