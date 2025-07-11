@@ -47,4 +47,4 @@ jobs:
         # Delete specific tag
         curl -X DELETE \
         -H "Authorization: JWT ${TOKEN}" \
-        https://hub.docker.com/v2/repositories/statusquox27/ssh-portfolio/tags/old-tag/
+        https://hub.docker.com/v2/repositories/statusquox27/ssh-portfolio/tags/"${{ env.PREV }}"/
