@@ -28,15 +28,6 @@ jobs:
        username: ${{ secrets.DOCKER_USER }}
        password: ${{ secrets.DOCKER_HUB }}
 
-    - name: Build and push to dockerhub
-      uses: docker/build-push-action@v5
-      with:
-       context: .
-       push: true
-       tags: | 
-          statusquox27/ssh-portfolio:${{ env.VERSION }}
-          statusquox27/ssh-portfolio:${{ env.ENV }}
-    
     - name: Delete Old Images
       uses: bots-house/docker-hub-delete-action@v1
       with:
@@ -44,6 +35,7 @@ jobs:
         password: ${{ secrets.DOCKER_HUB }}
         repository: statusquonjc46/ssh-portfolio
         tags: ${{ env.PREV }}, ${{ env.LATEST }}
+
     - name: Delete old images
       run: |
         # Get authentication token
