@@ -36,6 +36,7 @@ jobs:
        tags: | 
           statusquox27/ssh-portfolio:${{ env.VERSION }}
           statusquox27/ssh-portfolio:${{ env.ENV }}
+          statusquox27/ssh-portfolio:${{ env.LATEST }}
     
     - name: Delete old images
       run: |
@@ -44,7 +45,7 @@ jobs:
         -d '{"username": "${{ secrets.DOCKER_USER }}", "password": "${{ secrets.DOCKER_HUB }}"}' \
         https://hub.docker.com/v2/users/login/ | jq -r .token)
     
-        # Delete specific tag
+        # Delete previous version
         curl -X DELETE \
         -H "Authorization: JWT ${TOKEN}" \
         https://hub.docker.com/v2/repositories/statusquox27/ssh-portfolio/tags/"${{ env.PREV }}"/
