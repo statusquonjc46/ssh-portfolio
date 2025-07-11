@@ -44,3 +44,14 @@ jobs:
         password: ${{ secrets.DOCKER_HUB }}
         repository: statusquonjc46/ssh-portfolio
         tags: ${{ env.PREV }}, ${{ env.LATEST }}
+    - name: Delete old images
+      run: |
+        # Get authentication token
+        TOKEN=$(curl -s -H "Content-Type: application/json" -X POST \
+        -d '{"username": "${{ secrets.DOCKER_USER }}", "password": "${{ secrets.DOCKER_HUB }}"}' \
+        https://hub.docker.com/v2/users/login/ | jq -r .token)
+    
+        # Delete specific tag
+        curl -X DELETE \
+        -H "Authorization: JWT ${TOKEN}" \
+        https://hub.docker.com/v2/repositories/statusquox27/ssh-portfolio/tags/old-tag/
