@@ -19,6 +19,8 @@ jobs:
         source .envars
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         echo "ENV=$ENV" >> $GITHUB_ENV
+        echo "PREV=$PREV" >> $GITHUB_ENV
+        echo "LATEST=$LATEST" >> $GITHUB_ENV
 
     - name: Login to dockerhub
       uses: docker/login-action@v3
@@ -34,3 +36,11 @@ jobs:
        tags: | 
           statusquox27/ssh-portfolio:${{ env.VERSION }}
           statusquox27/ssh-portfolio:${{ env.ENV }}
+    
+    - name: Delete Old Images
+      uses: bots-house/docker-hub-delete-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_HUB }}
+        repository: statusquonjc46/ssh-portfolio
+        tags: ${{ env.PREV }}, ${{ env.LATEST }}
